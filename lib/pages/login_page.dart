@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:chat_room_learning/auth/auth_service.dart';
 import 'package:chat_room_learning/components/my_button.dart';
 import 'package:chat_room_learning/components/my_textField.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   //email and passwd text controllers
@@ -14,7 +14,21 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key, required this.onTap});
 
   //login function
-  void login() {}
+  void login() async {
+    //auth service
+    final authService = AuthService();
+
+    //try login
+    try {
+      await authService.singInWithEmailPassword(
+          _emailController.text, _passwordController.text);
+    }
+
+    //catch errors
+    on Exception catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

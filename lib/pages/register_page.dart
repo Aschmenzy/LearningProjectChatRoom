@@ -1,20 +1,47 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:chat_room_learning/auth/auth_service.dart';
 import 'package:chat_room_learning/components/my_button.dart';
 import 'package:chat_room_learning/components/my_textField.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class RegisterPage extends StatelessWidget {
   //email and passwd text controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController2 = TextEditingController();
   final void Function() onTap;
 
   RegisterPage({super.key, required this.onTap});
 
   //login function
-  void register() {}
+  void register(BuildContext context) {
+    final authService = AuthService();
+
+    try {
+      if (_passwordController.text == _passwordController2.text) {
+        authService.singUpWithEmailPassword(
+            _emailController.text, _passwordController.text);
+      } else {
+        // Show dialog for password mismatch
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Passwords don't match!"),
+          ),
+        );
+      }
+    } catch (e) {
+      // Show dialog for other errors
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +100,7 @@ class RegisterPage extends StatelessWidget {
             MyTextField(
               hintText: "Confirm Password",
               obscureText: true,
-              controller: _passwordController,
+              controller: _passwordController2,
             ),
 
             const SizedBox(
@@ -83,7 +110,7 @@ class RegisterPage extends StatelessWidget {
             //login button
             MyButton(
               text: "Register",
-              onTap: register,
+              onTap: () => register(context),
             ),
 
             const SizedBox(
