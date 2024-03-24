@@ -1,4 +1,4 @@
-import 'package:chat_room_learning/auth/auth_service.dart';
+import 'package:chat_room_learning/services/auth/auth_service.dart';
 import 'package:chat_room_learning/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
