@@ -1,7 +1,9 @@
 import 'package:chat_room_learning/services/auth/auth_gate.dart';
 
 import 'package:chat_room_learning/themes/light_mode.dart';
+import 'package:chat_room_learning/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const AuthGate(),
-      theme: lightMode,
+      theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
 }

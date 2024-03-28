@@ -1,3 +1,4 @@
+import 'package:chat_room_learning/components/chat_bubble.dart';
 import 'package:chat_room_learning/components/my_textField.dart';
 import 'package:chat_room_learning/services/auth/auth_service.dart';
 import 'package:chat_room_learning/services/chat/chat_services.dart';
@@ -38,7 +39,7 @@ class ChatPage extends StatelessWidget {
           crossAxisAlignment:
               isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            Text(data["message"]),
+            ChatBublle(message: data["message"], isCurrentUser: isCurrentUser),
           ],
         ));
   }
