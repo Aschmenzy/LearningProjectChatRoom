@@ -1,5 +1,7 @@
+import 'package:chat_room_learning/themes/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -19,13 +21,26 @@ class SettingPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              const Text("Dark Mode"),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            margin: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Dark Mode"),
 
-              //stiwthc toggle
-              CupertinoSwitch(value: true, onChanged: (value) {})
-            ],
+                //stiwthc toggle
+                CupertinoSwitch(
+                    value: Provider.of<ThemeProvider>(context).isDarkMode,
+                    onChanged: (value) =>
+                        Provider.of<ThemeProvider>(context, listen: false)
+                            .toggleTheme())
+              ],
+            ),
           )
           //dark more
         ],
